@@ -1,0 +1,7 @@
+ ,Label,Area,%Area,MinThr,MaxThr
+1,15-1_orbital_shaker_CTRL_1.tif,30.470,0.000,0,0
+2,tissue,18.972,100.000,0,211
+3,sirius_red,0.031,0.047,0,35
+4,15-1_orbital_shaker_CTRL_2.tif,66.223,0.000,0,0
+5,tissue,15.407,100.000,0,208
+6,sirius_red,0.024,0.039,0,34

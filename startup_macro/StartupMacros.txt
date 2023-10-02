@@ -1,0 +1,41 @@
+//  Add to /ImageJ/macros/StartupMacros.txt
+//  For sirius red package (Anja Hess 2023-JUN-05)
+
+   macro "save_as_tif" {
+id = getImageID();
+name = getTitle();
+dotIndex = indexOf(name, ".");
+prefix = substring(name, 0, dotIndex); 
+path = getDirectory("image");
+new_title = path+prefix+"_"+id+".tif";
+saveAs("Tiff", new_title);
+print("Saved to Tiff:", new_title);
+close();
+}
+
+
+    macro "select_organoid_rectangle_from_200umbar" {
+// To save the generated tif.
+id = getImageID();
+name = getTitle();
+path = getDirectory("image");
+selectImage(id);
+// Customize according to your images.. run("Set Scale...", "distance=223 known=200 unit=um global");
+makeRectangle(300, 300, 300, 300);
+beep();
+beep();
+beep();
+run("Wait For User", "Select rectangle around a single organoid. Leave space in the lower left for a scale bar."); 
+if (selectionType() == 0)  {
+      run("Crop");
+      run("Scale Bar...", "width=100 height=3 font=10 color=White background=None location=[Lower Left] bold overlay");
+      print("Applied scalebar.");
+      run("save_as_tif");
+      print("Opening original for further organoid selection.", path+name);
+      open(path+name); // continue to edit the original
+      run("select_organoid_rectangle_from_200umbar");  
+   } else {
+      print("Skipping image", id);
+      close();
+   }   
+}
